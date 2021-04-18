@@ -22,13 +22,22 @@ app.use(cors(corsOptions));
 const webpush = require('web-push');
 var pushSubscription = null;
 
-
 const publicVapidKey = 'YOUR PUBLIC KEY';
-const privateVapidKey = 'YOUR PRIVATE KEY';
+const privateVapidKey = 'YOUR PUBLIC KEY';
 
 webpush.setVapidDetails('mailto:my@email.com', publicVapidKey, privateVapidKey);
 
 app.use(require('body-parser').json());
+
+var apiFunction = function (req, res) {
+  setTimeout(() => res.send(new Date()), 1000);
+}
+
+app.get('/first', apiFunction);
+
+app.get('/second', apiFunction);
+
+app.get('/third', apiFunction);
 
 app.post('/subscribe', (req, res) => {
   ushSubscription = req.body;
