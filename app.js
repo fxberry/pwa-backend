@@ -20,7 +20,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 const webpush = require('web-push');
-var pushSubscription = null;
+let pushSubscription = null;
 
 const publicVapidKey = 'YOUR PUBLIC KEY';
 const privateVapidKey = 'YOUR PUBLIC KEY';
@@ -40,7 +40,7 @@ app.get('/second', apiFunction);
 app.get('/third', apiFunction);
 
 app.post('/subscribe', (req, res) => {
-  ushSubscription = req.body;
+  pushSubscription = req.body;
   res.status(201).json({});
   console.log('Push Subscribtion', req.body);
 });
@@ -63,7 +63,7 @@ app.post('/notifyme', (req, res) => {
   }]
 }
 });
-console.log(pushSubscriptions.toString());
+// console.log(pushSubscription.toString());
 
   webpush.sendNotification(pushSubscription, payload).catch(error => {
     console.error(error.stack);
